@@ -1,0 +1,126 @@
+ * 
+ * @author Micki Ross
+ * @version 9/18/2023
+ */
+public class IceCreamConeTest extends student.TestCase {
+    // private
+    private IceCreamCone flav;
+
+    /**
+     * the set up of each test case
+     */
+    public void setUp() {
+        flav = new IceCreamCone();
+    }
+
+
+    /**
+     * test if eating is working
+     */
+    public void testEatScoop() {
+        flav.addScoop("Almond");
+        flav.addScoop("Peanut");
+        flav.addScoop("Cashew");
+
+        assertEquals(3, flav.numScoops());
+        assertEquals("Cashew", flav.eatScoop());
+        assertEquals(2, flav.numScoops());
+    }
+
+
+    /**
+     * test if scoops are adding
+     */
+    public void testAddScoop() {
+        assertEquals(0, flav.numScoops());
+        flav.addScoop("Strawberry");
+        assertEquals(1, flav.numScoops());
+    }
+
+
+    /**
+     * test the number of scoops
+     */
+    public void testNumScoops() {
+        assertEquals(0, flav.numScoops());
+        flav.addScoop("Almond");
+        flav.addScoop("Peanut");
+        flav.addScoop("Cashew");
+        assertEquals(3, flav.numScoops());
+    }
+
+
+    /**
+     * test if flavor is contained
+     */
+    public void testContains() {
+        assertFalse(flav.contains("Almond"));
+        flav.addScoop("Almond");
+        flav.addScoop("Peanut");
+        flav.addScoop("Cashew");
+        assertFalse(flav.contains("chocolate"));
+        assertTrue(flav.contains("Almond"));
+    }
+
+
+    /**
+     * test if cone is empty
+     */
+    public void testEmptyCone() {
+        assertTrue(flav.emptyCone());
+        flav.addScoop("dirtyWater");
+        assertFalse(flav.emptyCone());
+        flav.eatScoop();
+        assertTrue(flav.emptyCone());
+    }
+
+
+    /**
+     * the current scoop of ice
+     * cream from top
+     */
+    public void testCurrentScoop() {
+        flav.addScoop("Almond");
+        flav.addScoop("Peanut");
+        flav.addScoop("Cashew");
+        assertEquals("Cashew", flav.currentScoop());
+        flav.eatScoop();
+        assertEquals("Peanut", flav.currentScoop());
+    }
+
+
+    /**
+     * test the to string of the flavor list
+     */
+    public void testToString() {
+        assertEquals("[]", flav.toString());
+        flav.addScoop("Peanut");
+        assertEquals("[Peanut]", flav.toString());
+        flav.addScoop("Cashew");
+        assertEquals("[Peanut, Cashew]", flav.toString());
+    }
+    /**
+     * test the equals method: backbone of ice cream
+     */
+    public void testEquals() {
+        flav.addScoop("chicken");
+        flav.addScoop("pork");
+        
+        IceCreamCone flav1 = new IceCreamCone();
+        flav1.addScoop("chicken");
+        flav1.addScoop("pork");
+        
+        IceCreamCone flav2 = new IceCreamCone();
+        flav1.addScoop("chicken");
+        flav1.addScoop("yum");
+        
+        assertTrue(flav.equals(flav));
+        assertFalse(flav.equals(flav1));
+        assertFalse(flav1.equals(flav));
+        assertFalse(flav.equals(flav2));
+        assertFalse(flav2.equals(flav1));
+        assertFalse(flav.equals("what"));
+        assertFalse(flav.equals(null));
+        
+    }
+}
