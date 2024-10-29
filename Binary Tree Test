@@ -1,0 +1,110 @@
+ * @author Micki Ross
+ * @version 11/12/23
+ */
+public class BinaryTreeTest extends TestCase {
+
+    private BinaryTree<String> tree;
+    private BinaryTree<String> tree2;
+    private BinaryTree<String> tree3;
+    private BinaryTree<String> tree4;
+
+    /**
+     * test the set up of each class
+     */
+    public void setUp() {
+        tree = new BinaryTree<>("A", new BinaryTree<>("B", new BinaryTree<>("D",
+            null, null), new BinaryTree<>("E", null, null)), new BinaryTree<>(
+                "C", new BinaryTree<>("F", null, null), new BinaryTree<>("G",
+                    null, null)));
+        tree2 = new BinaryTree<>("A", new BinaryTree<>("B", null, null),
+            new BinaryTree<>("C", null, null));
+        tree3 = new BinaryTree<>("A");
+        tree4 = new BinaryTree<>("A", new BinaryTree<>("B", null, null),
+            new BinaryTree<>(null, null, null));
+    }
+
+
+    /**
+     * test all the getters and setters of the binary tree method
+     */
+    public void testGetAndSet() {
+        assertEquals(tree.getElement(), "A");
+        tree.setElement("F");
+        assertEquals(tree.getElement(), "F");
+
+        tree.setLeft(tree3);
+        assertEquals(tree.getLeft(), tree3);
+
+        tree.setRight(tree3);
+        assertEquals(tree.getRight(), tree3);
+    }
+
+
+    /**
+     * test the size method
+     */
+    public void testSize() {
+        assertEquals(tree.size(), 7);
+        assertEquals(tree.getLeft().size(), 3);
+        assertEquals(tree.getRight().size(), 3);
+
+        assertEquals(tree2.getLeft().size(), 1);
+        assertEquals(tree2.getRight().size(), 1);
+        assertEquals(tree2.size(), 3);
+
+        assertEquals(tree2.size(), 3);
+
+        assertEquals(tree4.size(), 3);
+        // BinaryTree<String> t = new BinaryTree(null, null, null);
+        // assertEquals(t.size(), 1);
+
+    }
+
+
+    /**
+     * test the height method
+     */
+    public void testHeight() {
+        assertEquals(tree.height(), 3);
+        assertEquals(tree2.height(), 2);
+        assertEquals(tree3.height(), 1);
+        assertEquals(tree4.height(), 2);
+    }
+
+
+    /**
+     * test the pre-order is working correctly
+     */
+    public void testPreOrder() {
+        assertEquals(tree.toPreOrderString(), "(A(B(D)(E))(C(F)(G)))");
+        assertEquals(tree2.toPreOrderString(), "(A(B)(C))");
+        assertEquals(tree3.toPreOrderString(), "(A)");
+        assertEquals(tree4.toPreOrderString(), "(A(B)(null))");
+
+    }
+
+
+    /**
+     * test of in order is working correctly
+     */
+    public void testInOrder() {
+        assertEquals(tree.toInOrderString(), "(((D)B(E))A((F)C(G)))");
+        assertEquals(tree2.toInOrderString(), "((B)A(C))");
+        assertEquals(tree3.toInOrderString(), "(A)");
+        assertEquals(tree4.toInOrderString(), "((B)A(null))");
+
+    }
+
+
+    /**
+     * test if the post order works in the right order
+     */
+    public void testPostOrder() {
+        assertEquals(tree.toPostOrderString(), "(((D)(E)B)((F)(G)C)A)");
+        assertEquals(tree2.toPostOrderString(), "((B)(C)A)");
+        assertEquals(tree3.toPostOrderString(), "(A)");
+        assertEquals(tree4.toPostOrderString(), "((B)(null)A)");
+
+    }
+
+}
