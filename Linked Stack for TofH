@@ -1,0 +1,196 @@
+import stack.StackInterface;
+
+import java.util.EmptyStackException;
+
+/**
+ * the linked stack of towers
+ * 
+ * @author Micki Ross (micki22)
+ * @version 10/16/2023
+ * @param <T>
+ *            the type variable in tower
+ */
+public class LinkedStack<T> implements StackInterface<T> {
+
+    private int size;
+    private Node topNode;
+
+    /**
+     * the linked stack constructor
+     */
+    public LinkedStack() {
+        topNode = null;
+        size = 0;
+    }
+
+
+    /**
+     * the size the node
+     * 
+     * @return the size
+     */
+    public int size() {
+        return this.size;
+    }
+
+
+    /**
+     * clears the entire node of information
+     */
+    @Override
+    public void clear() {
+        topNode = null;
+        size = 0;
+    }
+
+
+    /**
+     * check if the node is empty
+     * 
+     * @return true if empty
+     */
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+
+    /**
+     * peek into to top of node
+     * 
+     * @return <T> the variable of top node
+     */
+    @Override
+    public T peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        else {
+            return topNode.data;
+        }
+    }
+
+
+    /**
+     * pop takes the top node out of the game
+     * 
+     * @return <T> the variable in node
+     */
+    @Override
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T data = topNode.getData(topNode);
+        topNode = topNode.getNextNode(topNode);
+        this.size--;
+        return data;
+    }
+
+
+    /**
+     * the push method takes in data and puts into node
+     * 
+     * @param dataValue
+     *            the data to put in
+     */
+    @Override
+    public void push(T dataValue) {
+        Node newN = new Node(dataValue, topNode);
+        topNode = newN;
+        size++;
+    }
+
+
+    /**
+     * the to string displays all the variables in node in square brackets
+     * 
+     * @return the string of brackets and node information
+     */
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[]";
+        }
+        if (this.size == 1) {
+            return "[" + topNode.data.toString() + "]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node curre = topNode;
+        while (curre.next != null) {
+            sb.append(curre.data.toString() + ", ");
+            curre = curre.next;
+        }
+        sb.append(curre.data.toString());
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     * private node class to make the node
+     */
+    private class Node {
+        private T data;
+        private Node next;
+
+        /**
+         * construction of node
+         * 
+         * @param data
+         *            within the stack
+         */
+        public Node(T data) {
+            this.data = data;
+        }
+
+
+        /**
+         * set the next node in a certain node
+         * 
+         * @param nod
+         *            the node
+         */
+        public void setNextNode(Node nod) {
+            this.next = nod;
+        }
+
+
+        /**
+         * the node with its data and next reference
+         * 
+         * @param data
+         *            the data within the node
+         * @param n
+         *            the Node itself coming in
+         */
+        public Node(T data, Node n) {
+            this(data);
+            this.setNextNode(n);
+        }
+
+
+        /**
+         * a getter for the next node of a certain node
+         * 
+         * @param node
+         *            the reference node
+         * @return the next node
+         */
+        public Node getNextNode(Node node) {
+            return node.next;
+        }
+
+
+        /**
+         * get the data inside the node
+         * 
+         * @param n
+         *            the node sent in
+         * @return the data within that node
+         */
+        public T getData(Node n) {
+            return n.data;
+        }
+    }
+}
