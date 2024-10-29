@@ -1,0 +1,91 @@
+/**
+ * 
+ */
+package towerofhanoi;
+
+import student.TestCase;
+
+/**
+ * the test class of the hanoi solver
+ * 
+ * @author Micki Ross (micki22)
+ * @version 10/16/2023
+ */
+public class HanoiSolverTest extends TestCase {
+    private HanoiSolver solve1;
+    private HanoiSolver solve2;
+    private Disk disk1;
+    private Disk disk2;
+    private Disk disk3;
+
+    /**
+     * the set up of each method in the class
+     */
+    public void setUp() {
+        solve1 = new HanoiSolver(6);
+        solve2 = new HanoiSolver(8);
+        disk1 = new Disk(10);
+        disk2 = new Disk(10);
+        disk3 = new Disk(10);
+    }
+
+
+    /**
+     * test the disk values
+     */
+    public void testDisks() {
+        assertEquals(6, solve1.disks());
+        assertEquals(8, solve2.disks());
+    }
+
+
+    /**
+     * test if get towers is returning correctly
+     */
+    public void testGetTower() {
+        assertEquals(solve1.getTower(Position.LEFT).position(), Position.LEFT);
+        assertEquals(solve1.getTower(Position.RIGHT).position(),
+            Position.RIGHT);
+        assertEquals(solve1.getTower(Position.MIDDLE).position(),
+            Position.MIDDLE);
+        assertEquals(solve1.getTower(Position.DEFAULT).position(),
+            Position.MIDDLE);
+    }
+
+
+    /**
+     * test the to string method
+     */
+    public void testToString() {
+        solve1.getTower(Position.LEFT).push(disk1);
+        solve1.getTower(Position.RIGHT).push(disk2);
+        solve1.getTower(Position.MIDDLE).push(disk3);
+        assertEquals(("[10][10][10]"), solve1.toString());
+    }
+
+
+    /**
+     * test if solve is working correctly from the recursion
+     */
+    public void testSolveTowers() {
+        Disk disk4 = new Disk(10);
+        Disk disk5 = new Disk(10);
+        Disk disk6 = new Disk(10);
+        HanoiSolver solve3 = new HanoiSolver(6);
+        disk1 = new Disk(17);
+        disk2 = new Disk(16);
+        disk3 = new Disk(15);
+        disk4 = new Disk(14);
+        disk5 = new Disk(13);
+        disk6 = new Disk(12);
+        solve3.getTower(Position.LEFT).push(disk1);
+        solve3.getTower(Position.LEFT).push(disk2);
+        solve3.getTower(Position.LEFT).push(disk3);
+        solve3.getTower(Position.LEFT).push(disk4);
+        solve3.getTower(Position.LEFT).push(disk5);
+        solve3.getTower(Position.LEFT).push(disk6);
+        solve3.solve();
+        assertEquals(6, solve3.getTower(Position.RIGHT).size());
+    }
+
+}
