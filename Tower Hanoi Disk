@@ -1,0 +1,82 @@
+
+/**
+ * each individual disk
+ * 
+ * @author Micki Ross (micki22)
+ * @version 10/16/2023
+ */
+public class Disk extends Shape implements Comparable<Disk> {
+
+    /**
+     * the disks size
+     * 
+     * @param width
+     *            the long ways size
+     */
+    public Disk(int width) {
+
+        super(0, 0, width, PuzzleWindow.DISK_HEIGHT);
+        TestableRandom ran = new TestableRandom();
+        int red = ran.nextInt(256);
+        int green = ran.nextInt(256);
+        int blue = ran.nextInt(256);
+
+        Color ranColor = new Color(red, green, blue);
+        this.setBackgroundColor(ranColor);
+    }
+
+
+    /**
+     * The compare will return an error is it is null
+     * it checks how disk are related (only smaller ones can be on top)
+     * 
+     * @param otherDisk
+     *            the disk to compare
+     * @return the -1 if to big, 1 if smaller
+     */
+    public int compareTo(Disk otherDisk) {
+        if (otherDisk == null) {
+            throw new IllegalArgumentException();
+        }
+        else if (this.getWidth() < otherDisk.getWidth()) {
+            return -1;
+        }
+        else if (this.getWidth() > otherDisk.getWidth()) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+
+    /**
+     * the to string to show in words the towers
+     * 
+     * @return the disks in square brackets
+     */
+    public String toString() {
+        return "" + this.getWidth();
+    }
+
+
+    /**
+     * the equals methods look for disk that are the same
+     * 
+     * @param obj
+     *            the disks
+     * @return if same then true
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Disk otherD = (Disk)obj;
+        return this.getWidth() == otherD.getWidth();
+
+    }
+
+}
