@@ -1,0 +1,143 @@
+import java.util.Stack;
+
+/**
+ * the ice class and its actions
+ * 
+ * @author Micki Ross
+ * @version 9/18/2023
+ */
+public class IceCreamCone implements IceCreamConeADT {
+
+    private Stack<String> flavors;
+    private int numScoops;
+
+    /**
+     * th7e constructor of ice cream
+     */
+    public IceCreamCone() {
+        flavors = new Stack<String>();
+        this.numScoops = 0;
+    }
+
+
+    /**
+     * the eating of ice cream
+     * 
+     * @return the flavor eaten
+     */
+    @Override
+    public String eatScoop() {
+        this.numScoops--;
+        return flavors.pop();
+    }
+
+
+    /**
+     * adding scoops of ice cream
+     * 
+     * @param flavor
+     *            the flavor added
+     */
+    @Override
+    public void addScoop(String flavor) {
+
+        this.numScoops++;
+        flavors.push(flavor);
+    }
+
+
+    /**
+     * the size of ice cream
+     * 
+     * @return the number of flavors in ice cream
+     */
+    @Override
+    public int numScoops() {
+
+        return numScoops;
+    }
+
+
+    /**
+     * if flavor in is contained?
+     * 
+     * @param flavor
+     *            of the day
+     * @return if contained returns true
+     */
+    @Override
+    public boolean contains(String flavor) {
+
+        for (String scoop : flavors) {
+            if (scoop.equals(flavor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * check empty-ness of cone
+     * 
+     * @return a true is empty
+     */
+    @Override
+    public boolean emptyCone() {
+
+        return flavors.isEmpty();
+    }
+
+
+    /**
+     * the look into the top of scoop
+     * 
+     * @return the flavor on top
+     */
+    @Override
+    public String currentScoop() {
+
+        return flavors.peek();
+    }
+
+
+    /**
+     * the to string method for my delicious ice
+     * 
+     * @return the string of flavors
+     */
+    public String toString() {
+        String total = "";
+
+        total += "[";
+        for (int i = 0; i < flavors.size(); i++) {
+            String flavor1 = flavors.get(i);
+            total += flavor1;
+            if (i < flavors.size() - 1) {
+                total += ", ";
+            }
+        }
+        total += "]";
+        return total;
+    }
+
+
+    /**
+     * equals method to ensure ice cream on cone
+     * 
+     * @param other
+     *            the object of cone
+     * @return a true or false of fullness
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if ((other == null) || (other.getClass() != this.getClass())) {
+            return false;
+        }
+        return flavors.equals(((IceCreamCone)other).flavors);
+    }
+
+}
